@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>   
-        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
+      <title>sgmq0 | raymond feng</title>
+      <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+      <link href="style.css" rel="stylesheet">
+      <script src="script.js" defer></script>
     </head>
 <body>
     <div class="flex flex-col h-screen justify-between">
         <header>
         
-          <nav class="w-full flex flex-wrap justify-between bg-gray-200 py-3 px-10 fixed top-0" id="nav">
+          <nav class="w-full flex flex-wrap justify-between bg-gray-200 py-6 px-16 fixed top-0" id="nav">
             <div class="flex items-center text-white mr-10 body-text">
               <span class="font-semibold text-xl tracking-tight text-gray-900">Raymond Feng</span>
             </div>
@@ -26,8 +28,8 @@
               </div>
             </div>
 
-            <div class="block lg:hidden relative" id="dropdown">
-              <button class="flex items-center px-4 py-3 border rounded text-gray-700 border-gray-700 hover:text-white hover:border-white hover:bg-gray-700" id="dropdown-button">
+            <div class="block lg:hidden relative" id="dropdown" dropdown>
+              <button class="flex items-center px-4 py-3 border rounded text-gray-700 border-gray-700 hover:text-white hover:border-white hover:bg-gray-700" id="dropdown-button" dropdown-button>
                 <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
               </button>
               <div class="absolute bg-gray-100 right-0 top-auto my-6" id="dropdown-menu">

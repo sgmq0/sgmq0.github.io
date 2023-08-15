@@ -17,13 +17,13 @@
     transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
 }
 
-#dropdown > #dropdown-button:focus {
+#dropdown.active > #dropdown-button {
     background-color: #374151;
     color: white;
     border-color: white;
 }
 
-#dropdown > #dropdown-button:focus + #dropdown-menu {
+#dropdown.active > #dropdown-button + #dropdown-menu {
     opacity: 1;
     transform: translateY(0);
 }
@@ -46,6 +46,15 @@
 
 .button2 {
     background-color: #1B2845
+}
+
+#nav {
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.nav-hidden {
+    transform: translateY(-100px);
+    opacity: 0;
 }
 
 @font-face {
