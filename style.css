@@ -11,6 +11,23 @@
     height: 100px;
 }
 
+#dropdown-menu {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+}
+
+#dropdown > #dropdown-button:focus {
+    background-color: #374151;
+    color: white;
+    border-color: white;
+}
+
+#dropdown > #dropdown-button:focus + #dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .heading {
     font-family: "Balsamiq";
 }
