@@ -1,5 +1,10 @@
 #home {
     height: 1080px;
+    background-color: #1B2845
+}
+
+#projects {
+    background-color: #335C81
 }
 
 #footer {
