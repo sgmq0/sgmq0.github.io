@@ -1,0 +1,33 @@
+#home {
+    height: 1080px;
+}
+
+#footer {
+    height: 100px;
+}
+
+#bg {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.heading {
+    font-family: "Balsamiq";
+}
+
+.heading2 {
+    font-family: "Raleway";
+}
+
+.body-text {
+    font-family: "Raleway";
+}
+
+@font-face {
+    font-family: Balsamiq;
+    src: url(./fonts/BalsamiqSans.ttf);
+}
+
+@font-face {
+    font-family: Raleway;
+    src: url(./fonts/Raleway.ttf);
+}
