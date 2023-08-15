@@ -22,6 +22,14 @@
     font-family: "Raleway";
 }
 
+.button1 {
+    background-color: #EF3E36
+}
+
+.button2 {
+    background-color: #1B2845
+}
+
 @font-face {
     font-family: Balsamiq;
     src: url(./fonts/BalsamiqSans.ttf);
