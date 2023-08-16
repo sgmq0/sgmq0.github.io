@@ -1,14 +1,15 @@
 #home {
-    height: 1080px;
-    background-color: #1B2845
+    background-color: #1B2845;
+    padding-top: 28rem;
+    padding-bottom: 28rem;
 }
 
-#main {
-    
+#projects {
+    background-color: #335c81;
 }
 
-#footer {
-    height: 100px;
+#portfolio {
+    background-color: #274060;
 }
 
 #dropdown-menu {
