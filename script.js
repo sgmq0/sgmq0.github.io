@@ -33,3 +33,12 @@ document.addEventListener('click', e => {
         lastScrollY = window.scrollY;
     });
 }
+
+function link1(){
+    window.open("https://alienbluez.itch.io/curtain-call-crusade");
+}
+
+function resume() {
+    window.open("./files/resume.pdf");
+}
+
