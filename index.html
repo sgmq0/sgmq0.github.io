@@ -13,13 +13,16 @@
           <!-- ///////////////////////// NAVBAR ///////////////////////// -->
 
           <nav class="w-full flex flex-wrap justify-between bg-gray-100 py-6 px-16 fixed top-0 z-10" id="nav">
-            <div class="flex items-center text-white mr-10 body-text">
-              <span class="font-semibold text-xl tracking-tight text-gray-900">Raymond Feng</span>
+            <div class="flex items-center text-white mr-10 heading">
+              <span class="text-gray-900 font-bold">Raymond Feng</span>
             </div>
             <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto hidden">
               <div class="text-sm lg:flex-grow body-text">
                 <a href="#home" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-black hover:bg-gray-300 px-4 py-2 rounded">
                   Home
+                </a>
+                <a href="#about" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-black hover:bg-gray-300 px-4 py-2 rounded">
+                  About
                 </a>
                 <a href="#projects" class="block mt-4 lg:inline-block lg:mt-0 text-gray-700 hover:text-black hover:bg-gray-300 px-4 py-2 rounded">
                   Projects
@@ -55,21 +58,82 @@
           <!-- ///////////////////////// MAIN SECTION ///////////////////////// -->
           <div class="bg-cover bg-no-repeat w-full relative text-center items-center justify-center px-14 md:px-12" id="home">
             <div class="flex h-full items-center justify-center">
-              <div class="px-14 text-center text-white md:px-12">
-                <h1 class="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] py-4 heading">sgmq0</h1>
-                <p class="mb-8 text-1xl max-w-xl body-text">I'm Raymond Feng, a sophomore studying Digital Media Design at the University of Pennsylvania. I'm interested in game development and computer graphics.
-                
-                </p>
-                <button type="button" class="body-text inline-block rounded px-6 py-3 text-xs font-medium uppercase leading-normal text-white 
-                    hover:scale-105 button1" onclick="resume()">
-                      RESUME
-                </button>
+              <div class="border rounded-3xl w-4/5 md:w-3/5 py-32 background-box">
+                <div class="px-14 text-center text-white md:px-12">
+                  <h1 class="text-5xl font-extrabold tracking-tight text-gray-400 sm:text-[5rem] heading">Raymond Feng</h1>
+                  <p class="mb-8 text-1xl body-text">
+                    Artist ・ Developer ・ Designer
+                  </p>
+                  <button type="button" class="body-text inline-block border border-gray-100 rounded-full px-6 py-3 text-xs font-medium uppercase leading-normal text-white 
+                      hover:scale-105 button1 mr-1" onclick="resume()">
+                        RESUME
+                  </button>
+                  <button type="button" class="body-text inline-block border border-gray-100 rounded-full px-6 py-3 text-xs font-medium uppercase leading-normal text-white 
+                      hover:scale-105 button1 ml-1" onclick="location.href='mailto:fengray@seas.upenn.edu';">
+                        EMAIL ME
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
+          <!-- ///////////////////////// ABOUT SECTION ///////////////////////// -->
+          <div class="flex flex-col items-center justify-center w-full pt-16 pb-32" id="about">
+            <div class="text-5xl font-extrabold tracking-tight text-gray-400 sm:text-[5rem] heading mb-4 text-center">
+              About
+              <hr>
+            </div>
+               
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 md:gap-2 justify-center">
+              <div class="max-w-md rounded overflow-hidden drop-shadow-lg">
+                <div class="w-full">
+                  <img class="w-full" src="./images/octo.png" alt="help"></img>
+                </div>
+              </div>
+              <div class="max-w-md py-12">
+                <p class="body-text text-gray-100 text-center leading-tight px-10 small-text">
+                  ・ I'm <strong>Raymond Feng</strong>, a sophomore studying Digital Media Design at the University of Pennsylvania.<br></br>
+                  ・ I was born in Toronto, Canada, but I grew up in Warrington, Pennsylvania. <br></br>
+                  ・ My background is mostly in game development and digital art, but I'm exploring computer graphics and web development. <br></br>
+                  ・ I love creating things, whether it be illustrations, websites, or games! I have a passion for learning new skills and making innovative applications. <br></br>
+                  ・ My other interests include running, comics and manga, animation, and marine life. Octopuses are my favorite animal!
+                </p>
+              </div>
+            </div> 
+            <div class="flex flex-wrap gap-2 pt-4 justify-center w-4/5 md:w-3/6">
+              <div class="rounded-2xl px-6 py-2 body-text skill1 text-sm ">HTML/CSS</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill1 text-sm ">Java</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill1 text-sm ">OCaml</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill1 text-sm ">JavaScript</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill1 text-sm ">Python</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill1 text-sm ">R</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill1 text-sm ">C#</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill1 text-sm ">C++</div>
+
+              <div class="rounded-2xl px-6 py-2 body-text skill2 text-sm ">ReactJS</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill2 text-sm ">Node.js</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill2 text-sm ">Express</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill2 text-sm ">Django</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill2 text-sm ">MongoDB</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill2 text-sm ">Tailwind CSS</div>
+
+              <div class="rounded-2xl px-6 py-2 body-text skill3 text-sm ">Photoshop</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill3 text-sm ">After Effects</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill3 text-sm ">Illustrator</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill3 text-sm ">InDesign</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill3 text-sm ">Figma</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill3 text-sm ">Clip Studio Paint</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill3 text-sm ">Autodesk Sketchbook</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill3 text-sm ">Live2D</div>
+
+              <div class="rounded-2xl px-6 py-2 body-text skill4 text-sm ">Maya</div>
+              <div class="rounded-2xl px-6 py-2 body-text skill4 text-sm ">Blender</div>
+            </div>   
+          </div>
+          
+
           <!-- ///////////////////////// PROJECTS SECTION ///////////////////////// -->
-          <div class=" flex flex-col items-center justify-center w-full py-64" id="projects">
+          <div class=" flex flex-col items-center justify-center w-full pb-32" id="projects">
             <h1 class="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] heading mb-10">
               Projects
             </h1>
@@ -109,7 +173,7 @@
           </div>
           
           <!-- ///////////////////////// PORTFOLIO SECTION ///////////////////////// -->
-          <div class=" flex flex-col items-center justify-center w-full py-64 px-32" id="portfolio">
+          <div class=" flex flex-col items-center justify-center w-full pb-32 px-32" id="portfolio">
             <h1 class="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] heading mb-10">
               Portfolio
             </h1>
@@ -182,7 +246,7 @@
           </div>
 
            <!-- ///////////////////////// FOOTER SECTION ///////////////////////// -->
-          <footer class="text-center text-white py-6 z-10">
+          <footer class="text-center text-white py-6 z-10 bg-gray-100">
             <div class="flex justify-center items-center space-x-1">
               <a href="https://www.linkedin.com/in/raymond-feng-a5680a251/" class="inline-flex justify-center p-2 text-gray-500 rounded-lg cursor-pointer dark:text-gray-400 dark:hover:text-white hover:text-gray-900 hover:bg-gray-200 dark:hover:bg-gray-600">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

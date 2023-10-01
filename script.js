@@ -42,3 +42,6 @@ function resume() {
     window.open("./files/resume.pdf");
 }
 
+function emailMe() {
+    window.open("mailto:fengray@seas.upenn.edu");
+}

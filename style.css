@@ -1,15 +1,10 @@
 #home {
-    background-color: #1B2845;
-    padding-top: 28rem;
-    padding-bottom: 28rem;
+    padding-top: 12rem;
+    padding-bottom: 12rem;
 }
 
-#projects {
-    background-color: #335c81;
-}
-
-#portfolio {
-    background-color: #274060;
+#main {
+    background-color: #171719;
 }
 
 #dropdown-menu {
@@ -30,7 +25,7 @@
 }
 
 .heading {
-    font-family: "Balsamiq";
+    font-family: "ChakraPetch";
 }
 
 .heading2 {
@@ -41,8 +36,11 @@
     font-family: "Raleway";
 }
 
-.button1 {
-    background-color: #EF3E36
+.button1:hover {
+    background-color: #adc8ff;
+    color: #171719;
+    border-color: #adc8ff;
+    transition: background-color .4s;
 }
 
 .button2 {
@@ -51,6 +49,12 @@
 
 #nav {
     transition: transform 0.2s, opacity 0.2s;
+}
+
+.background-box {
+    background-color: #202022;
+    border-color: #adc8ff;
+    border-width: 0.5px;
 }
 
 .nav-hidden {
@@ -75,7 +79,6 @@
     position: relative;
     width: 100%;
 }
-  
 
 .image-container:hover .image-overlay {
     opacity: .80;
@@ -94,11 +97,59 @@
 }
 
 @font-face {
-    font-family: Balsamiq;
-    src: url(./fonts/BalsamiqSans.ttf);
+    font-family: ChakraPetch;
+    src: url(./fonts/ChakraPetch.ttf);
 }
 
 @font-face {
     font-family: Raleway;
     src: url(./fonts/Raleway.ttf);
+}
+
+.small-text {
+    font-size: 11pt;
+}
+
+.skill1 {
+    color: #65afff;
+    border-color: #65afff;
+    border-width: 1px;
+}
+
+.skill1:hover {
+    background-color: #192838;
+    transition: background-color .4s;
+}
+
+.skill2 {
+    color: #6c82ff;
+    border-color: #6c82ff;
+    border-width: 1px;
+}
+
+.skill2:hover {
+    background-color: #202544;
+    transition: background-color .4s;
+}
+
+.skill3 {
+    color: #ff6565;
+    border-color: #ff6565;
+    border-width: 1px;
+}
+
+.skill3:hover {
+    background-color: #442020;
+    transition: background-color .4s;
+}
+
+.skill4 {
+    color: #ffbcbc;
+    border-color: #ffbcbc;
+    border-width: 1px;
+}
+
+.skill4:hover {
+    background-color: #4c3b3b;
+    transition: background-color .4s;
 }
