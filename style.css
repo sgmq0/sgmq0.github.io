@@ -50,8 +50,7 @@
     background-color: #adc8ff;
     color: #171719;
     border-color: #adc8ff;
-    width: 40%;
-    transition: background-color .5s, width 2s;
+    transition: background-color .5s;
 }
 
 #nav {
