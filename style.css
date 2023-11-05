@@ -1,11 +1,5 @@
 @media screen and (min-width: 768px) {
-    .button3:hover {
-        background-color: #adc8ff;
-        color: #171719;
-        border-color: #adc8ff;
-        width: 40%;
-        transition: background-color .5s, width 2s;
-    }
+    
 }
 
 #main {
@@ -56,7 +50,8 @@
     background-color: #adc8ff;
     color: #171719;
     border-color: #adc8ff;
-    transition: background-color .5s;
+    width: 40%;
+    transition: background-color .5s, width 2s;
 }
 
 #nav {
