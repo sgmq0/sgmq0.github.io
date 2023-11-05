@@ -1,6 +1,5 @@
 #home {
-    padding-top: 12rem;
-    padding-bottom: 12rem;
+  
 }
 
 #main {
@@ -152,4 +151,8 @@
 .skill4:hover {
     background-color: #3b2e2e;
     transition: background-color .4s;
+}
+
+#box1 {
+    
 }
