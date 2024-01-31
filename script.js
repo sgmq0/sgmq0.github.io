@@ -47,19 +47,19 @@ function emailMe() {
 }
 
 function link1() {
-    window.open("https://www.rfeng.dev/projectpages/minecraft.html");
+    window.location.href = "https://www.rfeng.dev/projectpages/minecraft.html";
 }
 
 function link2() {
-    window.open("https://www.rfeng.dev/projectpages/maya.html");
+    window.location.href = "https://www.rfeng.dev/projectpages/maya.html";
 }
 
 function link3() {
-    window.open("https://www.rfeng.dev/projectpages/shaderfun.html");
+    window.location.href = "https://www.rfeng.dev/projectpages/shaderfun.html";
 }
 
 function link4() {
-    window.open("https://www.rfeng.dev/projectpages/3drasterizer.html");
+    window.location.href = "https://www.rfeng.dev/projectpages/3drasterizer.html";
 }
 
 function demo() {
