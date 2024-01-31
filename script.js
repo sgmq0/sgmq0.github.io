@@ -45,3 +45,23 @@ function resume() {
 function emailMe() {
     window.open("mailto:fengray@seas.upenn.edu");
 }
+
+function link1() {
+    window.open("./projectpages/minecraft.html");
+}
+
+function link2() {
+    window.open("./projectpages/maya.html");
+}
+
+function link3() {
+    window.open("./projectpages/shaderfun.html");
+}
+
+function link4() {
+    window.open("./projectpages/3drasterizer.html");
+}
+
+function demo() {
+    window.open("https://vimeo.com/875041607");
+}

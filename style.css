@@ -172,3 +172,29 @@ code {
     color: #8c92a9;
     background-color: black;
 }
+
+.index-image {
+    filter: brightness(60%) blur(2px);
+}
+
+.index-image:hover {
+    filter: brightness(70%) blur(0px);
+    transition: filter .4s;
+}
+
+.blue-border {
+    border-color: #adc8ff;
+}
+
+.bg-index {
+    background-color: #374151;
+}
+
+.button4 {
+    background-color: #adc8ff;
+}
+
+.button4:hover {
+    background-color: #c3d7ff;
+    transition: background-color .4s;
+}
