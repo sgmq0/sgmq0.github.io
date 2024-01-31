@@ -34,7 +34,7 @@ document.addEventListener('click', e => {
     });
 }
 
-function link1(){
+function ccc(){
     window.open("https://alienbluez.itch.io/curtain-call-crusade");
 }
 
@@ -47,19 +47,19 @@ function emailMe() {
 }
 
 function link1() {
-    window.open("./projectpages/minecraft.html");
+    window.open("https://www.rfeng.dev/projectpages/minecraft.html");
 }
 
 function link2() {
-    window.open("./projectpages/maya.html");
+    window.open("https://www.rfeng.dev/projectpages/maya.html");
 }
 
 function link3() {
-    window.open("./projectpages/shaderfun.html");
+    window.open("https://www.rfeng.dev/projectpages/shaderfun.html");
 }
 
 function link4() {
-    window.open("./projectpages/3drasterizer.html");
+    window.open("https://www.rfeng.dev/projectpages/3drasterizer.html");
 }
 
 function demo() {
