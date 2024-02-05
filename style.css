@@ -67,6 +67,10 @@ html {
     border-width: 0.5px;
 }
 
+.background-box-borderless {
+    background-color: #3b3b40;
+}
+
 .nav-hidden {
     transform: translateY(-100px);
     opacity: 0;
@@ -200,5 +204,18 @@ code {
 
 .button4:hover {
     background-color: #c3d7ff;
+    transition: background-color .4s;
+}
+
+.clamp-line {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* number of lines to show */
+           line-clamp: 1; 
+    -webkit-box-orient: vertical;
+}
+
+.blogpost:hover {
+    background-color: #57575e;
     transition: background-color .4s;
 }

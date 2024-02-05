@@ -62,6 +62,11 @@ function link4() {
     window.location.href = "https://www.rfeng.dev/projectpages/3drasterizer.html";
 }
 
+function visitLink(link) {
+    window.location.href = link;
+}
+
+
 function demo() {
     window.open("https://vimeo.com/875041607");
 }
