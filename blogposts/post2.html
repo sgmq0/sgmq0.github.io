@@ -48,7 +48,26 @@
             </div>
             <div class="w-11/12 md:w-3/5 text-justify text-gray-500 body-text pb-4 text-sm">February 2, 2024</div>
             <div class="w-11/12 md:w-3/5 text-justify text-gray-500 body-text flex flex-col gap-4">
-              <p>blah blah paste text over</p>
+              <p>Here's a project I started for fun just to learn more about Unity's shader graph and render pipeline. Huge thank you to <a class="underline text-gray-400" href="https://www.logancho.com/about">Logan Cho</a> for the additional help!</p>
+              <p>The aim of this project is to recreate a piece of stylized concept art in Unity. My original plan was to recreate something in the style of <a class="underline text-gray-400" href="https://www.supergiantgames.com/games/hades">Hades / Jen Zee</a>, but I realized that would require a lot of time-consuming 3D modeling, so I put that idea on the backburner for now.</p>
+              <p>Instead, I found another piece of concept art by an artist I've been following for a while, <a class="underline text-gray-400" href="https://www.instagram.com/fresh_bobatae/">@fresh_bobatae / Emily Kim</a>. She makes a lot of very aesthetically pleasing drawings that I thought would work perfectly for a stylized 3D piece. The drawing that I eventually decided I would replicate was this one:</p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/post2/orang.jpg" class="scale-105 w-3/4 object-cover" alt=""/>
+              </div>
+              <h2 class="text-gray-400 text-xl pt-4">1. INTERESTING SHADERS</h2>
+              <p>The first step is to get a model imported into my Unity project. I threw together a quick model in blender that resembled the concept art, exported it as an fbx, and put it into my project. To start with, I made a three-tone toon shader with multiple light support, and also added some specular lighting based on the camera's forward vector. It's looking pretty good, but I'll need to adjust the colors of the materials further.</p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/post2/orange1.png" class="scale-105 w-3/4 object-cover" alt=""/>
+              </div>
+              <p>Looking good! My next goal is to create a vertex shader to make the leaves bob up and down, just to get some extra movement into the scene.</p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/post2/orange2.gif" class="scale-105 w-3/4 object-cover" alt=""/>
+              </div>
+              <p class="text-sm text-center tracking-tight">Don't worry, the bouncing is just because the gif doesn't loop perfectly.</p>
+              <p>To finish off our basic shaders, we'll add a screen space texture to get that nice halftone effect like on the concept art. I also adjusted the colors and lighting to make it a bit more accurate to the art.</p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/post2/orange3.png" class="scale-105 w-3/4 object-cover" alt=""/>
+              </div>
             </div>
             <div class="pt-10 flex flex-row gap-6 w-full justify-center body-text 
               text-xs font-medium uppercase text-white">
