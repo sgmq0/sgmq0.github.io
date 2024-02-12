@@ -47,8 +47,76 @@
               <h1 class="text-3xl leading-tight w-11/12 md:w-3/5 font-extrabold tracking-tight text-gray-400 sm:text-[5rem] heading">[PART 1] Monte Carlo Pathtracer: Ray Intersection Engine</h1>
             </div>
             <div class="w-11/12 md:w-3/5 text-justify text-gray-500 body-text pb-4 text-sm">January 29, 2024</div>
-            <div class="w-11/12 md:w-3/5 text-justify text-gray-500 body-text flex flex-col gap-4">
-              <p>blah blah paste text over</p>
+            <div class="w-11/12 md:w-3/5 text-justify text-gray-500 body-text flex flex-col gap-6">
+              <p>This is the first part of a project for which the end product will be a Monte Carlo pathtracer. To start with, we're creating a ray intersection engine to render shapes in 3D. This is also my first blog post, and I hope to do more in the near future. Enjoy this little writeup!</p>
+              <h2 class="text-gray-400 text-xl pt-4">1. RAY AND CAMERA</h2>
+              <p>First and foremost, we need to create rays that we're later going to use to intersect with our objects. To do this, I created a <code>Ray</code> class with only two major variables: Origin and direction, both of which are represented with vec3s. The <code>Ray</code> class also has a function called <code>transform</code>, which takes in a 4x4 transformation matrix and outputs a new <code>Ray</code> with those transformations. </p>
+              <p>Now that we have a <code>Ray</code> to cast, we need to make a camera to cast them from. To do this, I created a <code>Camera</code> class, which stores important information such as <code>Eye</code> (the camera's position), <code>Ref</code> (the reference point), the vec3 representing the camera's forward vector, as well as a far clip value, near clip value, our field of view (in radians. This is important!), and our width and height.</p>
+              <p>To test the implementation, I created a Camera in my function that renders the scene with the following parameters:</p>
+              <pre><code class="codeblock"> eye = (0, 0, 10)
+ ref = (0, 0, 0)
+ worldUp = (0, 1, 0)
+ fieldOfView = 45
+ width = height = 400
+ nearClip = 0.1
+ farClip = 1000</code></pre>
+              <p>For each pixel in the 400 by 400 output image, I casted a new <code>Ray</code> with that pixel as the reference point. I also wrote a simple function to map the ray's normalized direction to a color I can display:</p>
+              <pre><code class="codeblock"> QRgb getRgb(Vector3f dir)
+ {
+     glm::vec3 col = (dir + glm::vec3(1,1,1)) * 0.5f;
+     return qRgb(255 * col.x, 255 * col.y, 255 * col.z);
+ }</code></pre>
+              <p>Let's look at our output!</p>
+              <div class="flex flex-row w-full">
+                <img src="../images/post1/img1.png" class="scale-105 w-1/2 object-cover" alt=""/>
+                <img src="../images/post1/img2.png" class="scale-105 w-1/2 object-cover" alt=""/>
+              </div>
+              <p class="text-sm text-center tracking-tight">The left image was my first try. Actually, I had set the width and height to ints, so I was getting this result with quadrants. Changing them to floats, though, seemed to fix things, and once I got the image on the right I knew my code was working as intended. Mango flavored :D</p>
+              <h2 class="text-gray-400 text-xl pt-4">2. INTERSECTION, TRANSFORM, AND SHAPE</h2>
+              <p>To calculate intersections between our rays and our various objects, we're going to make a separate <code>Intersection</code> class (Actually, as you'll see, this can really just be a struct if you want). We'll need this class to output the surface normals at intersections.</p> 
+              <p>Next, we'll create a <code>Transform</code> class to represents a primitive's transformations, storing them as individual vec3s for translation, rotation, and scale, as well as in the form of transformation matrices. We'll use this class to transform the rays from local object space to world space and vice versa.</p>
+              <p>After that, we'll create <code>Primitive</code> and <code>Shape</code> classes, which will be used for the actual objects in the scene. <code>Primitive</code>s store a unique pointer to a <code>Shape</code>, which is an abstract superclass inherited by our <code>Sphere</code> and <code>SquarePlane</code> classes. With this structure, we can create as many differents <code>Shape</code>s as we'd like, but for our purposes, we'll only need two. Each class that inherits <code>Shape</code> stores a <code>Transform</code> object, as well as implements a <code>getIntersection</code> function that takes in a <code>Ray</code> as input and returns that ray's closest <code>Intersection</code> with the shape, if there is one.</p>
+              <p>There's also a <code>getIntersection</code> function in <code>Primitive</code> which basically transforms the <code>Ray</code> by its transformation matrix then calls <code>getIntersection</code> on the <code>Shape</code> pointed to by the member variable.</p>
+              <p>To top it all off, we'll create a simple <code>Scene</code> class, which stores a vector of unique pointers to that scene's <code>Primitive</code>s as well as a <code>Camera</code> object.</p>
+              <h2 class="text-gray-400 text-xl pt-4">3. SHAPE INTERSECTIONS</h2>
+              <p>Now that we have everything set up, we can start to implement the individual <code>Shape</code>s we have created, starting with the <code>Sphere</code>.</p>
+              <p>The basic idea for this sphere is to find the t-value closest to the camera using a parameterized formula, which can be read more about <a class="underline text-gray-400" href="https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection.html">here</a>.</p>
+              <p>For each pixel, I casted a <code>Ray</code> into the screen, and if it intersected with the <code>Sphere</code> object I had in the scene, it would return an <code>Intersection</code> with the normal set to be the vector originating at the sphere's origin in the direction of the intersection point. Then, I would color that pixel with the same normal to color function I wrote above.</p>
+              <p>Results on a sphere centered at the origin and with radius 1:</p>
+              <div class="flex flex-row w-full">
+                <img src="../images/post1/img3.png" class="scale-105 w-1/2 object-cover" alt=""/>
+                <img src="../images/post1/img4.png" class="scale-105 w-1/2 object-cover" alt=""/>
+              </div>
+              <p class="text-sm text-center tracking-tight">The first image's colors look a bit washed out, but it's because I forgot to normalize the output vector. Trying it again with normalized vectors, I obtained the second image. Looks like it's working!</p>
+              <p>The method we used for a square plane was checking to see if an intersection with an infinite plane lied within a 1 by 1 boundary, using the plane's height and width vectors. The base shape is a 1 by 1 square plane with its normal aligned to the z (forward) axis and centered at the origin.</p>
+              <p>This was a lot faster than doing the sphere since I already had a good idea of what needed to be done:</p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/post1/img5.png" class="scale-105 w-1/2 object-cover" alt=""/>
+              </div>
+              <p class="text-sm text-center tracking-tight">Looking good!</p>
+              <h2 class="text-gray-400 text-xl pt-4">4. TRANSFORMATIONS</h2>
+              <p>To put it all together, we'll have to make sure all the transformations work as intended. I made a scene with a sphere that was elongated on the y-axis and moved off from the origin. However, the transformation didn't work, and I suspected it was I was using the wrong transformation matrix. I double-checked my code to make sure that all of the transformations to the <code>Ray</code> happened at the most basic level-- The <code>Sphere</code> level. Turns out I was using the inverse transpose to transform my <code>Ray</code> instead of the inverse, and fixing that, I obtained:</p>
+              <div class="flex flex-row w-full">
+                <img src="../images/post1/img6.png" class="scale-105 w-1/2 object-cover" alt=""/>
+                <img src="../images/post1/img7.png" class="scale-105 w-1/2 object-cover" alt=""/>
+              </div>
+              <p class="text-sm text-center tracking-tight">The image on the left is the result I got using the inverse transpose. The image on the right is the correct result we should be getting, and uses simply the inverse instead.</p>
+              <p>Perfect! Let's do the same thing but with the square plane, but using a different transformation. We're scaling by 10 in the x and y directions, and also rotating it. I made the same changes to the <code>SquarePlane</code> class as I did to the <code>Sphere</code> class, and...</p>
+              <div class="flex flex-row w-full">
+                <img src="../images/post1/img8.png" class="scale-105 w-1/2 object-cover" alt=""/>
+                <img src="../images/post1/img9.png" class="scale-105 w-1/2 object-cover" alt=""/>
+              </div>
+              <p class="text-sm text-center tracking-tight">You can barely even see it, but the left image is the first result I got. After changing my input from degrees to radians, I obtained the second result, which is what we want.</p>
+              <p>Finally, I put these two objects together in a scene just to see how it looked. I'd say it turned out pretty well! </p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/post1/img10.png" class="scale-105 w-1/2 object-cover" alt=""/>
+              </div>
+              <p>Here's a few more images to showcase intersecting shapes.</p>
+              <div class="flex flex-row w-full">
+                <img src="../images/post1/combined_test.png" class="scale-105 w-1/2 object-cover" alt=""/>
+                <img src="../images/post1/art.png" class="scale-105 w-1/2 object-cover" alt=""/>
+              </div>
+              <p>Coming up next for this project, we'll be implementing sampling and beginning to do some path tracing.</p>
             </div>
             <div class="pt-10 flex flex-row gap-6 w-full justify-center body-text 
               text-xs font-medium uppercase text-white">

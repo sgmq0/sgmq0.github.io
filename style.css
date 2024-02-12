@@ -219,3 +219,12 @@ code {
     background-color: #57575e;
     transition: background-color .4s;
 }
+
+#h2 {
+    color: white;
+}
+
+.codeblock {
+    display: block;
+    white-space: pre-wrap;
+}
