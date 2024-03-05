@@ -47,10 +47,80 @@
               <h1 class="text-5xl font-extrabold tracking-tight text-gray-400 sm:text-[5rem] heading">Mini-Minecraft</h1>
             </div>
             <div class="w-11/12 md:w-3/5 text-justify text-gray-500 body-text flex flex-col gap-4">
-              <p class="">A Minecraft-like voxel-based game engine built in Qt Creator using C++ and OpenGL. 
-                In a team of 3, I was responsible for efficient chunking, cave generation, FBM noise-based post-processing effects, procedurally placed assets, ambient occlusion, and water waves. </p>
+              <p class="">A Minecraft-like voxel-based game engine built in Qt Creator using C++ and OpenGL.</p>
+              <p>For those of you who don't know, Mini-Minecraft was a final project that I did last semester 
+                for my interactive computer graphics course. I worked in a team of 3. </p>
+              <p>The project was split up into 3 milestones. The first two milestones each consisted of 
+                3 different parts, each of which would be divvied up between the 3 group members. The last 
+                milestone, however, allowed for a bit more creative freedom: For extra credit points, we 
+                could implement any number of additional features. These ranged from things like fancy biomes, 
+                to procedurally generated structures, to ambient occlusion. I'll speak more about it when we 
+                get to it!</p>
+              <p>Because of that, this writeup will be structured into three parts, each of which will detail 
+                the part of the project I was responsible for. In the future, I may want to revisit the project 
+                on my own time just to see if I can polish it up-- There were many things I wanted to add but 
+                didn't exactly have the time to, unfortunately.</p>
               <p class="">Check out our showcase reel here!</p>
               <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/908799046?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Mini Minecraft: Demo"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+              <h2 class="text-gray-400 text-2xl pt-4">Milestone 1: Efficient Terrain Rendering and Chunking</h2>
+              <p>For the first milestone, I was responsible for efficient terrain rendering, as well as chunking. </p>
+              <p>To give a brief explanation of the chunk system in Minecraft (which our version emulates), each 
+                chunk stores a 16 by 256 by 16 collection of blocks -  16 blocks wide, 256 blocks tall, and 16 blocks 
+                long. The terrain is split up into a collection of chunks, each of which has its own collection of blocks. </p>
+              <p>As for how this will be implemented in our version of Mini Minecraft: First, we have a <code>Terrain</code> 
+                class, which basically functions as a container for all of our <code>Chunk</code> objects. The <code>Terrain</code> 
+                class contains an unordered map called <code>m_chunks</code>, which we'll push <code>Chunk</code>s into. 
+                The <code>Terrain</code> class also contains useful functions such as <code>getBlockAt</code> and <code>getChunkAt</code>, 
+                which, given an x and z coordinate, returns the <code>BlockType</code> or <code>Chunk</code> at that position, respectively.</p>
+              <p>Now, to write our <code>Chunk</code> class. The <code>Chunk</code> class contains a variety of member variables: </p>
+              <ul>
+                <li>- A 1D array of <code>BlockType</code>s. <code>BlockType</code> is an enum representing the type of block 
+                  (e.g. <code>WOOD</code>, <code>GRASS</code>, <code>STONE</code>, <code>EMPTY</code>, etc.).
+                   This 1D array has 65,536 elements to store the 16 x 256 x 16 blocks in the <code>Chunk</code>.</li>
+                <li>- A function called <code>getBlockAt</code> which takes in 3 coordinates, and returns the <code>BlockType</code> 
+                  at that coordinate in the <code>Chunk</code> relative to the bottom corner as a <code>const</code>. 
+                  Since our chunk stores <code>BlockType</code>s in a 1D array, I had to work around that slightly by finding 
+                  the block at index <code>x + 16 * y + 16 * 256 * z</code>. Furthermore, I also implemented a simple check for 
+                  bounds; If any of the 3 coordinates were outside of the 16 x 256 x 16 bounds of the chunk, I would return a <code>BlockType</code> of <code>EMPTY</code>.</li>
+              </ul>
+              <p>Now that we have chunking set up, the hard part is to implement efficient terrain rendering. Right now, when we're rendering all of our blocks, we're drawing each and every block face. In the worst case, that's 65,536 blocks * 6 faces * 2 triangles * 3 vertices, which is way too much VBO data. But what we want is to only render block faces if the block directly facing it is of type <code>EMPTY</code> - This way, we don't render faces that we can't see. </p>
+              <p>How do we do this? First, iterate over every (x,y,z) position in our array of <code>BlockType</code>s, skipping over blocks that are <code>EMPTY</code> (this can be checked using the handy <code>getBlockAt</code> function we wrote earlier). Then, check the <code>BlockType</code> of all 6 of the current block's surrounding faces. If a neighboring <code>BlockType</code> is ever <code>EMPTY</code>, update the VBO with that block face's information.</p>
+              <p>For blocks that are on the border of a chunk, using <code>getBlockAt</code> on a neighbor might return <code>EMPTY</code> even if it isn't empty. To fix this, we'll simply look at the neighboring chunk as well using the <code>Terrain</code> class's <code>getChunkAt</code> function.</p>
+              <p>It's important to note that the position, normal, and UV vec4s are all stored on the same interleaved vertex buffer object. The UV coordinates refer to a texture image that we imported ourselves; This was implemented by another group member. Importantly, though, since the interleaved vertex buffer stores vec4s, the vec4 containing the UV coordinate has 2 empty elements. Later, we'll use these two empty elements to store other information.</p>
+              <h2 class="text-gray-400 text-2xl pt-4">Milestone 2: Caves and Post-Processing Effects</h2>
+              <p>For the second milestone, I was responsible for procedurally generated caves and post-process water effects. These were both features that I later revisited during the third milestone, but I'll explain all of it here for convenience. </p>
+              <p>The caves were generated using FBM noise. These "spaghetti" caves are long, narrow, and winding; The plan was to generate noise, then "carve" out the terrain under a specific y-level using that noise. I made heavy reference of <a href="https://minecraft.fandom.com/wiki/Cave" class="underline text-gray-400">the Caves article on the Minecraft wiki</a> as well as <a href="https://stackoverflow.com/questions/73214618/how-does-minecraft-generate-thin-noodle-caves" class="underline text-gray-400">this very helpful post</a> on StackOverflow. </p>
+              <p>The basic idea was to generate 2 different 3D perlin noise functions. To get the spaghetti effect, we want to find the behavior around 0 of <code>noise1^2 + noise2^2</code>, which creates a long, narrow shape. <a href="https://www.shadertoy.com/view/stccDB" class="underline text-gray-400">This shader</a> on ShaderToy does a good job of illustrating it.</p>
+              <p>Once we have the noise function, we can carve out the caves by setting blocks below a specific absolute value (I used 0.005). If the y-value is 25 or below, we can set the block type to <code>LAVA</code> instead of <code>EMPTY</code> to create lava pools at the bottom of caves.</p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/minecraft/caves.png" class="scale-105 w-3/4 object-cover" alt=""/>
+              </div>
+              <p>For post processing effects, I planned on implementing a blue overlay if the player's camera went underwater, and a red overlay if the player's camera went into lava. To do this, I created 3 different fragment shaders: <code>nothing.frag.glsl</code>, which would be active if the player's camera wasn't in liquid at all, <code>water.frag.glsl</code> for water, and <code>lava.frag.glsl</code> for lava. </p>
+              <p>To actually display these shaders, I created a function to check if the player was in liquid or not. This function would check the blocks at 12 points in the player's bounding box, and if any of them were of type <code>LAVA</code> or <code>WATER</code>, the movement speed would decrease by some factor. Furthermore, I also checked if the block at the camera's position was <code>LAVA</code> or <code>WATER</code>, and if it was, I would use the corresponding fragment shader.</p>
+              <p>As for the shaders themselves, they were implemented using a combination of FBM noise and worley noise. The texture coordinates were also distorted as a function based on time:</p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/minecraft/postprocess.png" class="scale-105 w-3/4 object-cover" alt=""/>
+              </div>
+              <h2 class="text-gray-400 text-2xl pt-4">Milestone 3: Extra features</h2>
+              <p>I implemented a variety of extra features, including ambient occlusion, water waves, and distance fog. I'll talk about them all in more detail below!</p>
+              <h3 class="text-gray-400 text-xl pt-4">Ambient Occlusion</h3>
+              <p>With voxel-based game engines like Minecraft, ambient occlusion is done on the vertices of each cube. This means that for each vertex of a cube, we have to calculate its ambient occlusion value based on which neighboring blocks are empty, then shade each face according to its vertices' ambient occlusion values. When the shades are interpolated, this results in a nice smoothing effect. </p>
+              <p>To illustrate what I mean, <a href="https://0fps.net/2013/07/03/ambient-occlusion-for-minecraft-like-worlds/" class="underline text-gray-400">this article</a> explains the four possible "configurations" of ambient occlusion in a voxel game engine much better than I can.</p>
+              <p>Remember those two free empty elements of the UV coordinate vec4? I used one of them to store the ambient occlusion value. This can be 0, 1, 2, or 3, and within the fragment shader we'll darken the vertex depending on the ambient occlusion. </p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/minecraft/ao.png" class="scale-105 w-3/4 object-cover" alt=""/>
+              </div>
+              <h3 class="text-gray-400 text-xl pt-4">Water Waves</h3>
+              <p>I implemented a vertex shader for the water waves, which would make the water move in sine waves to simulate some depth. This would also alter the normals of the waves, so that light reflected off of it correctly. For this feature, I referenced <a href="https://catlikecoding.com/unity/tutorials/flow/waves/" class="underline text-gray-400">Catlikecoding's wave article</a>. </p>
+              <p>I created a new vertex shader called <code>liquid.vert.glsl</code>, which I also applied to the lava. I created 4 different sine waves with various offsets and layered them together by finding the maximum of each wave. For the normal vector, I calculated the normals of each wave separately and added them together for a combined result.</p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/minecraft/waves.png" class="scale-105 w-3/4 object-cover" alt=""/>
+              </div>
+              <h3 class="text-gray-400 text-xl pt-4">Distance Fog</h3>
+              <p>I copied the sky shader code over to my lambert fragment shader and liquid fragment shader, then adjusted a few values to add it to the base color in an aesthetically pleasing way based on the player camera's distance from each block.</p>
+              <div class="flex flex-row w-full justify-center">
+                <img src="../images/minecraft/distancefog.png" class="scale-105 w-3/4 object-cover" alt=""/>
+              </div>
             </div>
             <div class="pt-10 flex flex-row gap-6 w-full justify-center body-text 
               text-xs font-medium uppercase text-white">
